@@ -1,0 +1,207 @@
+<form autocomplete="off">
+  <div class="loot-grid">
+    <div class="field-group full-width">
+      <h3>
+        {{#if hasContextActor}}
+          {{localize "PF2ELootGenerator.Form.TargetTitleWithActor" actor=actorName}}
+        {{else}}
+          {{localize "PF2ELootGenerator.Form.TargetTitle"}}
+        {{/if}}
+      </h3>
+
+      {{#unless hasContextActor}}
+        <div class="mode-row">
+          <label class="checkbox">
+            <input type="radio" name="generationMode" value="create" {{checked createMode}} />
+            {{localize "PF2ELootGenerator.Form.CreateNew"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="generationMode" value="existing" {{checked existingMode}} />
+            {{localize "PF2ELootGenerator.Form.AddExisting"}}
+          </label>
+        </div>
+      {{/unless}}
+
+      <div class="field-row">
+        {{#unless hasContextActor}}
+          <div class="form-group">
+            <label>{{localize "PF2ELootGenerator.Form.LootName"}}</label>
+            <input type="text" name="lootName" value="{{defaults.lootName}}" />
+          </div>
+          <div class="form-group">
+            <label>{{localize "PF2ELootGenerator.Form.TargetActor"}}</label>
+            <select name="targetActorId">
+              <option value="">{{localize "PF2ELootGenerator.Form.ChooseActor"}}</option>
+              {{#each actorOptions}}
+                <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}} ({{this.type}})</option>
+              {{/each}}
+            </select>
+          </div>
+        {{/unless}}
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.LootImage"}}</label>
+          <div class="file-picker-row">
+            <input type="text" name="lootImage" value="{{defaults.lootImage}}" />
+            <button type="button" class="file-picker" data-type="imagevideo" data-target="lootImage" tabindex="-1">
+              <i class="fas fa-file-import"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field-group full-width">
+      <h3>{{localize "PF2ELootGenerator.Form.LootMode"}}</h3>
+      <div class="mode-row">
+        <label class="checkbox">
+          <input type="radio" name="lootMode" value="manual" {{checked manualLootMode}} />
+          {{localize "PF2ELootGenerator.Form.ManualLootMode"}}
+        </label>
+        <label class="checkbox">
+          <input type="radio" name="lootMode" value="encounter" {{checked encounterLootMode}} />
+          {{localize "PF2ELootGenerator.Form.EncounterLootMode"}}
+        </label>
+      </div>
+      <div class="field-row" data-loot-mode-section="encounter">
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.EncounterLevel"}}</label>
+          <input type="number" name="encounterLevel" value="{{defaults.encounterLevel}}" min="1" max="20" />
+        </div>
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.EncounterCount"}}</label>
+          <input type="number" name="encounterCount" value="{{defaults.encounterCount}}" min="1" max="99" />
+        </div>
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.EncounterThreat"}}</label>
+          <select name="encounterThreat">
+            {{#each encounterThreats}}
+              <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <div class="checkbox-grid" data-loot-mode-section="encounter">
+        <label class="checkbox">
+          <input type="checkbox" name="fillWithCoins" {{checked defaults.fillWithCoins}} />
+          {{localize "PF2ELootGenerator.Form.FillWithCoins"}}
+        </label>
+      </div>
+      <p class="hint" data-encounter-budget data-loot-mode-section="encounter">{{localize "PF2ELootGenerator.Form.EncounterBudget" budget=encounterBudgetLabel}}</p>
+      <p class="hint" data-loot-mode-section="encounter">{{localize "PF2ELootGenerator.Form.EncounterHint"}}</p>
+    </div>
+
+    <div class="field-group full-width">
+      <h3>{{localize "PF2ELootGenerator.Form.ItemFilters"}}</h3>
+      <div class="field-row">
+        <div class="form-group" data-loot-mode-section="manual">
+          <label>{{localize "PF2ELootGenerator.Form.CommonCount"}}</label>
+          <input type="text" name="commonCount" value="{{defaults.commonCount}}" />
+        </div>
+        <div class="form-group" data-loot-mode-section="manual">
+          <label>{{localize "PF2ELootGenerator.Form.UncommonCount"}}</label>
+          <input type="text" name="uncommonCount" value="{{defaults.uncommonCount}}" />
+        </div>
+        <div class="form-group" data-loot-mode-section="manual">
+          <label>{{localize "PF2ELootGenerator.Form.RareCount"}}</label>
+          <input type="text" name="rareCount" value="{{defaults.rareCount}}" />
+        </div>
+        <div class="form-group" data-loot-mode-section="manual">
+          <label>{{localize "PF2ELootGenerator.Form.UniqueCount"}}</label>
+          <input type="text" name="uniqueCount" value="{{defaults.uniqueCount}}" />
+        </div>
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.MinLevel"}}</label>
+          <input type="number" name="minLevel" value="{{defaults.minLevel}}" min="0" max="30" />
+        </div>
+        <div class="form-group">
+          <label>{{localize "PF2ELootGenerator.Form.MaxLevel"}}</label>
+          <input type="number" name="maxLevel" value="{{defaults.maxLevel}}" min="0" max="30" />
+        </div>
+      </div>
+      <p class="hint" data-loot-mode-section="manual">{{localize "PF2ELootGenerator.Form.CountHint"}}</p>
+      <p class="hint" data-loot-mode-section="encounter">{{localize "PF2ELootGenerator.Form.EncounterLevelHint"}}</p>
+    </div>
+
+    <div class="field-group">
+      <h3>{{localize "PF2ELootGenerator.Form.Categories"}}</h3>
+      <div class="checkbox-grid">
+        {{#each categories}}
+          <label class="checkbox">
+            <input type="checkbox" name="categories" value="{{this.value}}" {{checked this.checked}} />
+            {{this.label}}
+          </label>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="field-group">
+      <h3>{{localize "PF2ELootGenerator.Form.Rarities"}}</h3>
+      <div class="checkbox-grid">
+        {{#each rarities}}
+          <label class="checkbox">
+            <input type="checkbox" name="rarities" value="{{this.value}}" {{checked this.checked}} />
+            {{this.label}}
+          </label>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="field-group full-width">
+      <div class="form-group">
+        <label>{{localize "PF2ELootGenerator.Form.Tags"}}</label>
+        <input type="hidden" name="tags" value="{{defaults.tags}}" data-tags-value />
+        <div class="trait-picker">
+          <div class="trait-picker-input">
+            <input type="search" list="pf2e-loot-generator-traits" data-trait-search autocomplete="off" />
+            <button type="button" data-action="add-trait">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <datalist id="pf2e-loot-generator-traits">
+            {{#each traitOptions}}
+              <option value="{{this.value}}" label="{{this.label}}"></option>
+            {{/each}}
+          </datalist>
+          <div class="trait-chips" data-trait-chips>
+            {{#each selectedTags}}
+              <button type="button" class="trait-chip" data-trait="{{this.value}}">
+                <span>{{this.label}}</span>
+                <i class="fas fa-times"></i>
+              </button>
+            {{/each}}
+          </div>
+        </div>
+        <p class="hint">{{localize "PF2ELootGenerator.Form.TagsHint"}}</p>
+      </div>
+      <div class="form-group">
+        <label>{{localize "PF2ELootGenerator.Form.Labels"}}</label>
+        <input type="text" name="labels" value="{{defaults.labels}}" />
+        <p class="hint">{{localize "PF2ELootGenerator.Form.LabelsHint"}}</p>
+      </div>
+      <div class="checkbox-grid">
+        <label class="checkbox">
+          <input type="checkbox" name="openSheet" {{checked defaults.openSheet}} />
+          {{localize "PF2ELootGenerator.Form.OpenSheet"}}
+        </label>
+        {{#unless hasContextActor}}
+          <label class="checkbox">
+            <input type="checkbox" name="replaceExisting" {{checked defaults.replaceExisting}} />
+            {{localize "PF2ELootGenerator.Form.ReplaceExisting"}}
+          </label>
+        {{/unless}}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <button type="button" data-action="cancel">{{localize "PF2ELootGenerator.Form.Cancel"}}</button>
+    <button type="submit">
+      <i class="fas fa-gem"></i>
+      {{#if hasContextActor}}
+        {{localize "PF2ELootGenerator.Form.AddSubmit"}}
+      {{else}}
+        {{localize "PF2ELootGenerator.Form.Submit"}}
+      {{/if}}
+    </button>
+  </div>
+</form>

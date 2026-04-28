@@ -1,0 +1,41 @@
+{
+  "id": "pf2e-loot-generator",
+  "title": "PF2E Loot Generator",
+  "description": "Create PF2E loot actors and populate new or existing actors with random items from PF2E compendia.",
+  "version": "0.1.0",
+  "authors": [
+    {
+      "name": "Almagest"
+    }
+  ],
+  "compatibility": {
+    "minimum": "13.348",
+    "verified": "13.351",
+    "maximum": "13"
+  },
+  "esmodules": [
+    "scripts/main.js",
+    "scripts/loot-generator-form.js"
+  ],
+  "styles": [
+    "styles/loot-generator.css"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "relationships": {
+    "systems": [
+      {
+        "id": "pf2e",
+        "type": "system",
+        "compatibility": {
+          "minimum": "7.8.0"
+        }
+      }
+    ]
+  }
+}
