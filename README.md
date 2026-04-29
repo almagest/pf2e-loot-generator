@@ -15,6 +15,14 @@ A Foundry VTT v13 module for Pathfinder 2E that creates loot actors and adds ran
 
 ## Installation
 
+Install from Foundry's **Install Module** dialog with this manifest URL:
+
+```text
+https://github.com/almagest/pf2e-loot-generator/releases/latest/download/module.json
+```
+
+## Local Development
+
 Copy or symlink this folder into your Foundry user data modules directory as `pf2e-loot-generator`, then enable **PF2E Loot Generator** in the world module settings.
 
 Example:
