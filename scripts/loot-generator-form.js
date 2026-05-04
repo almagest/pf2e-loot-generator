@@ -844,7 +844,7 @@ async function createSpellConsumableSource(entry, spell) {
   source.system.spell = foundry.utils.mergeObject(
     spellSource,
     {
-      _id: randomID(),
+      _id: generateId(),
       system: {
         location: {
           value: null,
@@ -913,6 +913,10 @@ function serializeGeneratorConfig(config, actor = null) {
     openSheet: config.openSheet,
     replaceExisting: false,
   };
+}
+
+function generateId() {
+  return foundry.utils.randomID?.() ?? Math.random().toString(36).slice(2, 18);
 }
 
 export { MODULE_ID, LootGeneratorForm, createOrPopulateLoot };
