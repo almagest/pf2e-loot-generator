@@ -2,10 +2,10 @@
   "id": "pf2e-loot-generator",
   "title": "PF2E Loot Generator",
   "description": "Create PF2E loot actors and populate new or existing actors with random items from PF2E compendia.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "url": "https://github.com/almagest/pf2e-loot-generator",
   "manifest": "https://github.com/almagest/pf2e-loot-generator/releases/latest/download/module.json",
-  "download": "https://github.com/almagest/pf2e-loot-generator/releases/download/0.1.2/pf2e-loot-generator.zip",
+  "download": "https://github.com/almagest/pf2e-loot-generator/releases/download/0.1.3/pf2e-loot-generator.zip",
   "readme": "https://github.com/almagest/pf2e-loot-generator/blob/main/README.md",
   "bugs": "https://github.com/almagest/pf2e-loot-generator/issues",
   "authors": [
@@ -14,7 +14,7 @@
     }
   ],
   "compatibility": {
-    "minimum": "13.348",
+    "minimum": "14.360",
     "verified": "14.360",
     "maximum": "14"
   },
